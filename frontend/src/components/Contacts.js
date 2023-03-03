@@ -18,7 +18,26 @@ const people = [
     imageUrl: 'https://randomuser.me/api/portraits/men/75.jpg',
     telephone: null,
   },
+  {
+    email: 'loesvdlinde@hotmail.com',
+    name: 'Loes van der Linde',
+    title: 'UX Engineer',
+    imageUrl: 'https://scontent-ams4-1.xx.fbcdn.net/v/t1.6435-9/203004664_2334745963336973_30807586988129401_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=M4wwYpe1YjoAX-Z3Fob&_nc_ht=scontent-ams4-1.xx&oh=00_AfDSuJKZnJlzydPiPzbq-GikNnqKG8cfurkpmDawGZHKGQ&oe=6429AF24',
+    telephone: '0648871771',
+  },
 ];
+
+// Sort people array by last name
+people.sort((a, b) => {
+  const lastNameA = a.name.split(' ').pop().toLowerCase();
+  const lastNameB = b.name.split(' ').pop().toLowerCase();
+  if (lastNameA < lastNameB) {
+    return -1;
+  } else if (lastNameA > lastNameB) {
+    return 1;
+  }
+  return 0;
+});
 
 export default function Contacts() {
   return (
@@ -36,7 +55,7 @@ export default function Contacts() {
               </div>
               <p className="mt-1 text-gray-500 text-sm truncate">{person.title}</p>
             </div>
-            <img className="w-10 h-10 bg-gray-300 rounded-full flex-shrink-0" src={person.imageUrl} alt="" />
+            <img className="w-10 h-10 bg-gray-300 rounded-full flex-shrink-0 object-cover" src={person.imageUrl} alt="" />
           </div>
           <div>
             <div className="-mt-px flex divide-x divide-gray-200">
