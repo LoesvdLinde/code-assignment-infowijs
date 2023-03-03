@@ -49,15 +49,19 @@ export default function Contacts() {
                   <span className="ml-3">Email</span>
                 </a>
               </div>
-              <div className="-ml-px w-0 flex-1 flex">
-                <a
-                  href={`tel:${person.telephone}`}
-                  className="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500"
-                >
-                  <PhoneIcon className="w-5 h-5 text-gray-400" aria-hidden="true" />
-                  <span className="ml-3">Call</span>
-                </a>
-              </div>
+
+              {person.telephone !== null &&
+                <div className="-ml-px w-0 flex-1 flex">
+                  <a
+                    href={`tel:${person.telephone}`}
+                    className="relative w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-br-lg hover:text-gray-500"
+                  >
+                    <PhoneIcon className="w-5 h-5 text-gray-400" aria-hidden="true" />
+                    <span className="ml-3">Call</span>
+                  </a>
+                </div>
+              }
+
             </div>
           </div>
         </li>
