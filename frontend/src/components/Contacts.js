@@ -1,3 +1,4 @@
+import {useState} from "react";
 import {
   MailIcon,
   PhoneIcon,
@@ -10,6 +11,7 @@ const people = [
     title: 'Front Office',
     imageUrl: 'https://randomuser.me/api/portraits/women/75.jpg',
     telephone: '+31600000000',
+    favorite: false,
   },
   {
     email: 'hans@bedrijf.nl',
@@ -17,6 +19,7 @@ const people = [
     title: 'Lead Developer',
     imageUrl: 'https://randomuser.me/api/portraits/men/75.jpg',
     telephone: null,
+    favorite: false,
   },
   {
     email: 'loesvdlinde@hotmail.com',
@@ -24,25 +27,38 @@ const people = [
     title: 'UX Engineer',
     imageUrl: 'https://scontent-ams4-1.xx.fbcdn.net/v/t1.6435-9/203004664_2334745963336973_30807586988129401_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=M4wwYpe1YjoAX-Z3Fob&_nc_ht=scontent-ams4-1.xx&oh=00_AfDSuJKZnJlzydPiPzbq-GikNnqKG8cfurkpmDawGZHKGQ&oe=6429AF24',
     telephone: '0648871771',
+    favorite: true,
   },
 ];
 
-// Sort people array by last name
-people.sort((a, b) => {
-  const lastNameA = a.name.split(' ').pop().toLowerCase();
-  const lastNameB = b.name.split(' ').pop().toLowerCase();
-  if (lastNameA < lastNameB) {
-    return -1;
-  } else if (lastNameA > lastNameB) {
-    return 1;
-  }
-  return 0;
-});
 
 export default function Contacts() {
+
+  // Sort people array by last name
+  people.sort((a, b) => {
+    const lastNameA = a.name.split(' ').pop().toLowerCase();
+    const lastNameB = b.name.split(' ').pop().toLowerCase();
+    if (lastNameA < lastNameB) {
+      return -1;
+    } else if (lastNameA > lastNameB) {
+      return 1;
+    }
+    return 0;
+  });
+
+  //filter favorites
+  const [showFavorites, setShowFavorites] = useState(false);
+  const filteredPeople = showFavorites ? people.filter(person => person.favorite) : people;
+  const handleToggleFavorites = () => {
+    setShowFavorites(prevState => !prevState);
+  };
+
   return (
     <ul role="list" className="grid m-4 grid-cols-1 space-y-4">
-      {people.map((person) => (
+      <button onClick={handleToggleFavorites}>
+        {showFavorites ? 'Show all' : 'Show favorites'}
+      </button>
+      {filteredPeople.map((person) => (
         <li key={person.email} className="col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200">
           <div className="w-full flex items-center justify-between p-6 space-x-6">
             <div className="flex-1 truncate">
